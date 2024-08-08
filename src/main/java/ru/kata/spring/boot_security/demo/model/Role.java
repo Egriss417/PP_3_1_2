@@ -1,23 +1,25 @@
-package ru.kata.spring.boot_security.demo.security;
+package ru.kata.spring.boot_security.demo.model;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_security.demo.model.User;
-
 import javax.persistence.*;
-import java.util.Objects;
 import java.util.Set;
 
-@Component
 @Entity
 public class Role implements GrantedAuthority{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
     private String name;
+
+    public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;

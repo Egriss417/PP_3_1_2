@@ -1,18 +1,14 @@
 package ru.kata.spring.boot_security.demo.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.model.User;
 import java.util.Collection;
 
-@Component
 public class PersonDetails implements UserDetails {
 
     private final User user;
 
-    @Autowired
     public PersonDetails(User user) {
         this.user = user;
     }

@@ -2,14 +2,12 @@ package ru.kata.spring.boot_security.demo.model;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_security.demo.security.Role;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Component
 @Scope("prototype")
 public class User {
 
@@ -28,9 +26,11 @@ public class User {
     private String email;
 
     @Column(name = "username")
-    private String username;
+    public String username;
     @Column(name = "password")
     private String password;
+
+
 
     @ManyToMany
     @JoinTable(
@@ -48,10 +48,11 @@ public class User {
         this.roles = roles;
     }
 
-    public User(String firstName, String lastName, String email) {
+    public User(String firstName, String lastName, String email, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.roles = roles;
     }
 
     public User() {}
@@ -102,8 +103,18 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
     @Override
     public String toString() {
-        return "\nFirstName: " + firstName + "\nLastName: " + lastName + "\nEmail: " + email;
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }
