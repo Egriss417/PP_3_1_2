@@ -7,12 +7,11 @@ import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.model.User;
 import java.util.Collection;
 
-@Component
+
 public class PersonDetails implements UserDetails {
 
     private final User user;
 
-    @Autowired
     public PersonDetails(User user) {
         this.user = user;
     }

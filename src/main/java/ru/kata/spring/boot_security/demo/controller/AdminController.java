@@ -4,6 +4,7 @@ package ru.kata.spring.boot_security.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -21,11 +22,13 @@ public class AdminController {
 
     private final UserService userService;
     private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AdminController(UserService userService, RoleService roleService) {
+    public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping(value = "/users")
@@ -43,6 +46,7 @@ public class AdminController {
 
     @PostMapping("/user-create")
     public String addUser(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.save(user);
         return "redirect:/admin/users";
     }
@@ -71,7 +75,13 @@ public class AdminController {
 
     @PostMapping("/users-update")
     public String updateUser(User user){
+        User selectedUser = userService.findById(user.getId()).get();
+        if(user.getPassword() == ""){
+            user.setPassword(selectedUser.getPassword());
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userService.save(user);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 }

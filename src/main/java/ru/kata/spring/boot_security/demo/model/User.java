@@ -1,15 +1,12 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-import ru.kata.spring.boot_security.demo.security.Role;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Component
 @Scope("prototype")
 public class User {
 

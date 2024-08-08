@@ -5,24 +5,21 @@
   <title>Update user</title>
 </head>
 <body>
-<form action="#" th:action="@{/users-update}" th:object="${user}" method="post">
+<form th:object="${user}">
   <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
   <label for="id">ID</label>
   <br/>
-  <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name">
+  <input type="text" th:field="*{firstName}" id="firstName" placeholder="First Name" readonly>
   <label for="firstName">First name</label>
   <br/>
-  <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name">
+  <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name" readonly>
   <label for="lastName">Last name</label>
   <br/>
-  <input type="text" th:field="*{email}" id="email" placeholder="Email">
+  <input type="text" th:field="*{email}" id="email" placeholder="Email" readonly>
   <label for="email">Email</label>
   <br/>
-  <input type="text" th:field="*{username}" id="username" placeholder="Username">
+  <input type="text" th:field="*{username}" id="username" placeholder="Username" readonly>
   <label for="username">Username</label>
-  <br/>
-  <input type="text" th:field="*{password}" id="password" placeholder="Password">
-  <label for="password">Password</label>
   <br/>
   <label>Roles</label>
   <br/>
@@ -30,7 +27,6 @@
     <option th:each="role :${allRoles}" th:value="${role.id}" th:text="${role.name}" ></option>
   </select>
   <br/>
-  <input type="submit" value="Update User">
   <a href="/logout">Logout</a>
 </form>
 </body>
