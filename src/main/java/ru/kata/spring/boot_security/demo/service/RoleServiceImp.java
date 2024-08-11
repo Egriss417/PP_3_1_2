@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@EnableTransactionManagement
 public class RoleServiceImp implements RoleService {
     private final RoleDao roleDao;
 
