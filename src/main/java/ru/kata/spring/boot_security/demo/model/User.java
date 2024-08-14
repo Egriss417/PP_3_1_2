@@ -1,9 +1,10 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,28 +18,34 @@ public class User {
     private Long id;
 
     @Column(name = "first_name")
+    @NotEmpty(message = "Name should not be empty")
+    @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
     private String firstName;
 
     @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "email")
+    @NotEmpty(message = "Email should not be empty")
     private String email;
 
     @Column(name = "username")
+    @NotEmpty(message = "Username should not be empty")
     public String username;
     @Column(name = "password")
     private String password;
 
 
-
-    @ManyToMany
+    @ManyToMany(
+            cascade = CascadeType.MERGE,
+            fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles;
+    @NotEmpty( message = "Roles should not be empty")
+    private Set<Role> roles = new HashSet<>();
 
     public Set<Role> getRoles() {
         return roles;

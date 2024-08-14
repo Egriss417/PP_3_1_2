@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.security.PersonDetails;
+import ru.kata.spring.boot_security.demo.util.UserNotFoundException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -27,8 +29,9 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userDao.findById(id);
+    public User findById(Long id) {
+        Optional<User> user = userDao.findById(id);
+        return user.orElseThrow(UserNotFoundException::new);
     }
 
     @Override

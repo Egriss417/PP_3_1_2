@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
     List<User> findAll();
-    Optional<User> findById(Long id);
+    User findById(Long id);
     User save(User user);
     void deleteById(Long id);
     Optional<User> findByUsername(String username);
