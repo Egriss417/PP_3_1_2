@@ -26,15 +26,8 @@ public class UserController {
     }
 
     @GetMapping
-    public String editUser(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        model.addAttribute("user", userService.findByUsername(authentication.getName()).get());
-        model.addAttribute("allRoles", roleService.findAll());
+    public String editUser() {
         return "user-info";
     }
 
-    @GetMapping("/")
-    public String getIndex(){
-        return "index";
-    }
 }
